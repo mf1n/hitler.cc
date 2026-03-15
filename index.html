@@ -1,421 +1,331 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="icon" type="image/png" href="pfp.png" />
 
-  <title>nuwdep</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root {
-      padding: 0;
-      margin: 0;
-      font-family: "Roboto Mono", monospace;
-      color: #e6e6e6;
-      box-sizing: border-box;
-    }
+<title>nuwdep</title>
 
-    body {
-      margin: 0;
-      height: 100vh;
-      width: 100vw;
-      background: url("bg.png") no-repeat center center fixed;
-      background-size: cover;
-      overflow: hidden;
-    }
+<link rel="icon" href="pfp.png">
 
-    .glass {
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      background-color: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-    }
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 
-    .glow {
-      text-shadow: rgba(255, 255, 255, 0.3) 0px 0px 3px;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    .audio-player {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 14px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: #e6e6e6;
-      width: 380px;
-      border-radius: 16px;
-      box-sizing: border-box;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-    .album-art-wrapper {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
+<style>
 
-    .album-art-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Roboto Mono",monospace;
+}
 
-    .spinning {
-      animation: spin 5s linear infinite;
-      animation-play-state: paused;
-    }
+body{
+height:100vh;
+background:url("bg.png") center/cover no-repeat fixed;
+color:#e6e6e6;
+overflow:hidden;
+}
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
+}
 
-    .info {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-width: 0;
-    }
+#cover{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:4rem;
+cursor:pointer;
+z-index:9999;
+}
 
-    .info strong {
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+.glass{
+backdrop-filter:blur(12px);
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:20px;
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
 
-    .info span {
-      font-size: 12px;
-      color: #bdbdbd;
-    }
+.card{
+width:420px;
+padding:40px;
+display:flex;
+flex-direction:column;
+gap:25px;
+}
 
-    .progress-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
+.profile{
+display:flex;
+align-items:center;
+gap:18px;
+}
 
-    #progress-bar-container {
-      flex: 1;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-      overflow: hidden;
-      cursor: pointer;
-    }
+.avatar{
+width:80px;
+height:80px;
+border-radius:14px;
+object-fit:cover;
+box-shadow:0 0 20px rgba(255,255,255,0.1);
+}
 
-    #progress-bar {
-      width: 0%;
-      height: 100%;
-      background: #ff3b81;
-      transition: width 0.2s;
-    }
+.name-row{
+display:flex;
+align-items:center;
+gap:6px;
+}
 
-    .controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 8px;
-    }
+.name-row h1{
+font-size:24px;
+font-weight:600;
+}
 
-    .controls button {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+.badge{
+width:20px;
+height:20px;
+}
 
-    .controls button:hover {
-      transform: scale(1.2);
-    }
+.subtitle{
+font-size:13px;
+color:#bdbdbd;
+}
 
-    audio {
-      display: none;
-    }
+.bio{
+font-size:14px;
+color:#d6d6d6;
+line-height:1.6;
+}
 
-    .social-box {
-      position: fixed;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 35px;
-      padding: 20px 10px;
-    }
+.socials{
+display:flex;
+justify-content:center;
+gap:18px;
+}
 
-    .social-box img {
-      width: 48px;
-      height: 48px;
-      cursor: pointer;
-      filter: invert(100%) brightness(100%);
-      transition: transform 0.2s ease;
-    }
+.socials img{
+width:22px;
+height:22px;
+filter:invert(100%);
+opacity:.8;
+transition:.2s;
+}
 
-    .social-box img:hover {
-      transform: scale(1.1);
-    }
+.socials img:hover{
+opacity:1;
+transform:scale(1.15);
+}
 
-    .discord-invite {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 360px;
-    }
+#clock{
+position:fixed;
+top:20px;
+right:20px;
+font-size:14px;
+}
 
-    #clock {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 18px;
-      color: #fff;
-    }
+.audio-player{
+position:fixed;
+bottom:20px;
+right:20px;
+width:300px;
+padding:15px;
+display:flex;
+gap:12px;
+align-items:center;
+}
 
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+.album{
+width:60px;
+height:60px;
+border-radius:50%;
+overflow:hidden;
+}
 
-    #cover {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      font-family: 'Roboto Mono', monospace;
-      cursor: pointer;
-      z-index: 9999;
-    }
-  </style>
+.album img{
+width:100%;
+height:100%;
+object-fit:cover;
+animation:spin 6s linear infinite;
+animation-play-state:paused;
+}
+
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+.info{
+flex:1;
+font-size:13px;
+}
+
+.controls{
+margin-top:6px;
+}
+
+button{
+background:none;
+border:none;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
 </head>
 
 <body>
-  <div id="cover">Hitler.cc</div>
 
-  <div id="particles-js"></div>
-  <div id="clock"></div>
+<div id="cover">enter</div>
 
-  <div class="social-box glass">
-    <a href="https://steamcommunity.com/id/fatmancallum" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/steam.svg" alt="Steam" />
-    </a>
-    <a href="https://github.com/nuwdep" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub" />
-    </a>
-    <a href="https://open.spotify.com/user/31mf24d6tezrz57jrn57ogv4uguq" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/spotify.svg" alt="Spotify" />
-    </a>
-    <a href="https://youtube.com/@nuwdep" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" />
-    </a>
-    <a href="https://twitter.com/virusjar" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" />
-    </a>
-    <a href="https://discord.gg/6QwSj8ZYyc" target="_blank">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg" alt="Discord" />
-    </a>
-  </div>
+<div id="particles-js"></div>
 
-  <div class="w-screen h-screen flex items-center justify-center">
-    <div class="glass w-[600px] h-fit flex flex-col items-center p-[20px] gap-[10px]">
-      <div class="flex flex-row items-center gap-[12px] w-full">
-        <img class="w-[100px] h-[100px]" src="pfp.gif" alt="Profile" />
-        <div class="flex flex-col">
-          <div class="flex items-center gap-[6px]">
-            <a class="glow text-3xl">Muffin.js</a>
-            <img src="badge1.png" alt="Badge 1" class="w-[24px] h-[24px]" />
-            <img src="badge2.png" alt="Badge 2" class="w-[24px] h-[24px]" />
-          </div>
-          <a class="text-2xl">Loser</a>
-        </div>
-      </div>
+<div id="clock"></div>
 
-      <span class="w-full h-px bg-white"></span>
+<div class="min-h-screen flex items-center justify-center">
 
-      <a class="text-base text-center" style="color: #e6e6e6;">
-        16 years old, JavaScript Dev, TheMuffinMan, caffeine addict
-      </a>
-      <span class="w-full h-px bg-white"></span>
-    </div>
-  </div>
+<div class="glass card">
 
-  <div class="discord-invite glass p-[10px] flex flex-row gap-[10px] items-center">
-    <img class="w-auto h-[75px]" src="server.png" alt="Wallahi Friends" />
-    <a class="glow shrink-0">Wallahi Friends</a>
-    <div class="w-full grow flex flex-row-reverse">
-      <a
-        href="https://discord.gg/6QwSj8ZYyc"
-        class="glow-hover transition-transform transform hover:scale-105 cursor-pointer border border-white py-[6px] px-[12px]"
-      >🡆</a>
-    </div>
-  </div>
+<div class="profile">
 
-  <div class="audio-player glass">
-    <div class="album-art-wrapper">
-      <img id="album-art" class="spinning" src="album.png" alt="Album Art" />
-    </div>
-    <div class="info">
-      <strong id="song-title">Cherry Waves</strong>
-      <span id="artist-name">𝐃𝐞𝐟𝐭𝐨𝐧𝐞𝐬</span>
-      <div class="progress-container">
-        <span id="current-time">0:00</span>
-        <div id="progress-bar-container">
-          <div id="progress-bar"></div>
-        </div>
-        <span id="duration">0:00</span>
-      </div>
-      <div class="controls">
-        <button id="prev-btn"></button>
-        <button id="play-btn">▶</button>
-        <button id="next-btn"></button>
-      </div>
-      <audio id="bg-music" muted>
-        <source src="audio.mp3" type="audio/mp3" />
-      </audio>
-    </div>
-  </div>
+<img src="pfp.gif" class="avatar">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
-  <script>
-    const cover = document.getElementById("cover");
-    const audio = document.getElementById("bg-music");
-    const playBtn = document.getElementById("play-btn");
-    const albumArt = document.getElementById("album-art");
+<div>
 
-    cover.addEventListener("click", () => {
-      cover.style.transition = "opacity 0.5s";
-      cover.style.opacity = 0;
-      setTimeout(() => cover.remove(), 500);
+<div class="name-row">
+<h1>Muffin.js</h1>
+<img src="badge1.png" class="badge">
+<img src="badge2.png" class="badge">
+</div>
 
-      audio.muted = false;
-      audio.play().then(() => {
-        playBtn.textContent = "⏸";
-        albumArt.style.animationPlayState = "running";
-      }).catch(err => console.warn("Autoplay blocked:", err));
-    });
+<div class="subtitle">JavaScript Developer</div>
 
-    const fullTitle = ".muffin";
-    let index = 1;
-    let direction = 1;
-    const speed = 200;
+</div>
 
-    function typewriterLoop() {
-      document.title = fullTitle.substring(0, index);
-      if (direction === 1 && index === fullTitle.length) {
-        direction = -1;
-        setTimeout(typewriterLoop, 1000);
-      } else if (direction === -1 && index === 1) {
-        direction = 1;
-        setTimeout(typewriterLoop, 500);
-      } else {
-        index += direction;
-        setTimeout(typewriterLoop, speed);
-      }
-    }
-    window.addEventListener("load", typewriterLoop);
+</div>
 
-    const progressBar = document.getElementById("progress-bar");
-    const currentTimeEl = document.getElementById("current-time");
-    const durationEl = document.getElementById("duration");
-    const progressContainer = document.getElementById("progress-bar-container");
+<p class="bio">
+16 years old • TheMuffinMan • caffeine addict  
+building random things on the internet
+</p>
 
-    playBtn.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        playBtn.textContent = "⏸";
-      } else {
-        audio.pause();
-        playBtn.textContent = "▶";
-      }
-    });
+<div class="socials">
 
-    audio.addEventListener("play", () => albumArt.style.animationPlayState = "running");
-    audio.addEventListener("pause", () => albumArt.style.animationPlayState = "paused");
+<a href="https://github.com/nuwdep" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg">
+</a>
 
-    audio.addEventListener("timeupdate", () => {
-      if (!isDragging) {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progress}%`;
-        currentTimeEl.textContent = formatTime(audio.currentTime);
-      }
-    });
-    audio.addEventListener("loadedmetadata", () => {
-      durationEl.textContent = formatTime(audio.duration);
-    });
+<a href="https://steamcommunity.com/id/fatmancallum" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/steam.svg">
+</a>
 
-    let isDragging = false;
-    progressContainer.addEventListener("mousedown", e => { isDragging = true; seek(e); });
-    document.addEventListener("mousemove", e => { if (isDragging) seek(e); });
-    document.addEventListener("mouseup", () => { if (isDragging) isDragging = false; });
+<a href="https://youtube.com/@nuwdep" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg">
+</a>
 
-    function seek(e) {
-      const rect = progressContainer.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
-      const width = rect.width;
-      const percent = Math.min(Math.max(offsetX / width, 0), 1);
-      audio.currentTime = percent * audio.duration;
-      progressBar.style.width = `${percent * 100}%`;
-      currentTimeEl.textContent = formatTime(audio.currentTime);
-    }
+<a href="https://open.spotify.com/user/31mf24d6tezrz57jrn57ogv4uguq" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/spotify.svg">
+</a>
 
-    function formatTime(seconds) {
-      if (isNaN(seconds)) return "0:00";
-      const minutes = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
-      return `${minutes}:${secs}`;
-    }
+<a href="https://twitter.com/virusjar" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg">
+</a>
 
-    albumArt.onload = () => {
-      const colorThief = new ColorThief();
-      const color = colorThief.getColor(albumArt);
-      progressBar.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-    };
+<a href="https://discord.gg/6QwSj8ZYyc" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg">
+</a>
 
-    function updateClock() {
-      const now = new Date();
-      document.getElementById("clock").innerText = now.toLocaleTimeString();
-    }
-    setInterval(updateClock, 2000);
-    updateClock();
+</div>
 
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 15 },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.15 },
-        size: { value: 2 },
-        move: { speed: 0.5 }
-      }
-    });
-  </script>
+</div>
+</div>
+
+<div class="audio-player glass">
+
+<div class="album">
+<img id="albumArt" src="album.png">
+</div>
+
+<div class="info">
+
+<div>Cherry Waves</div>
+<div style="color:#aaa;font-size:12px;">Deftones</div>
+
+<div class="controls">
+<button id="play">▶</button>
+</div>
+
+</div>
+
+<audio id="music">
+<source src="audio.mp3" type="audio/mp3">
+</audio>
+
+</div>
+
+<script>
+
+const cover=document.getElementById("cover")
+const audio=document.getElementById("music")
+const play=document.getElementById("play")
+const album=document.getElementById("albumArt")
+
+cover.onclick=()=>{
+cover.style.opacity=0
+setTimeout(()=>cover.remove(),500)
+
+audio.play()
+album.style.animationPlayState="running"
+play.textContent="⏸"
+}
+
+play.onclick=()=>{
+if(audio.paused){
+audio.play()
+play.textContent="⏸"
+album.style.animationPlayState="running"
+}else{
+audio.pause()
+play.textContent="▶"
+album.style.animationPlayState="paused"
+}
+}
+
+function updateClock(){
+document.getElementById("clock").innerText=new Date().toLocaleTimeString()
+}
+
+setInterval(updateClock,1000)
+updateClock()
+
+particlesJS("particles-js",{
+particles:{
+number:{value:20},
+color:{value:"#ffffff"},
+shape:{type:"circle"},
+opacity:{value:0.2},
+size:{value:2},
+move:{speed:0.6}
+}
+})
+
+</script>
+
 </body>
 </html>
+```
