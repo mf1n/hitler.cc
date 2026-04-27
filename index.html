@@ -113,52 +113,36 @@ line-height:1.6;
 position:fixed;
 top:20px;
 right:20px;
+font-size:18px;
 }
 
 .audio-player{
 position:fixed;
 bottom:20px;
 right:20px;
-width:300px;
-padding:15px;
+width:340px; /* was 300px */
+padding:18px;
 display:flex;
-gap:12px;
+gap:14px;
 align-items:center;
 }
 
 .album{
-width:60px;
-height:60px;
-border-radius:50%;
-overflow:hidden;
-}
-
-.album img{
-width:100%;
-height:100%;
-object-fit:cover;
-animation:spin 6s linear infinite;
-animation-play-state:paused;
-}
-
-@keyframes spin{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
+width:70px;  /* was 60px */
+height:70px;
 }
 
 .info{
 flex:1;
+font-size:17px; /* slightly bigger text */
 }
 
 .controls{
-margin-top:6px;
+margin-top:8px;
 }
 
 button{
-background:none;
-border:none;
-color:white;
-cursor:pointer;
+font-size:18px; /* bigger play button */
 }
 
 /* ABOUT BOX */
@@ -197,7 +181,7 @@ margin-bottom:10px;
 <div>
 
 <div class="name-row">
-<h1>Nutmeg1</h1>
+<h1>callum_lol</h1>
 <img src="badge1.png" class="badge">
 <img src="badge2.png" class="badge">
 </div>
@@ -209,8 +193,7 @@ margin-bottom:10px;
 </div>
 
 <p class="bio">
-16y/o Blueberry Muffin
-i love caffiene, fantasy, i have a vast music taste,
+fffffffffffffffffffffffffffffffffffffffffffffff
 </p>
 
 </div>
@@ -218,7 +201,6 @@ i love caffiene, fantasy, i have a vast music taste,
 
 <!-- ABOUT ME BOX -->
 <div class="about glass">
-  <h2>About Me</h2>
   <p>
     i'm 16 from england, i mostly code in javascript.<br>
     my favourite films are revenge of the sith and fellowship of the ring.<br>
@@ -226,317 +208,6 @@ i love caffiene, fantasy, i have a vast music taste,
     favourite books are the hobbit and i have no mouth and i must scream.<br>
     i have a massive music taste (ignore anything jack says)
   </p>
-</div>
-
-<div class="audio-player glass">
-
-<div class="album">
-<img id="albumArt" src="album.png">
-</div>
-
-<div class="info">
-<div>Heart-Shaped Box</div>
-<div style="color:#aaa;">NIRVANA</div>
-
-<div class="controls">
-<button id="play">▶</button>
-</div>
-</div>
-
-<audio id="music">
-<source src="audio.mp3" type="audio/mp3">
-</audio>
-
-</div>
-
-<script>
-
-const cover=document.getElementById("cover")
-const audio=document.getElementById("music")
-const play=document.getElementById("play")
-const album=document.getElementById("albumArt")
-
-cover.onclick=()=>{
-cover.style.opacity=0
-setTimeout(()=>cover.remove(),500)
-
-audio.play()
-album.style.animationPlayState="running"
-play.textContent="⏸"
-}
-
-play.onclick=()=>{
-if(audio.paused){
-audio.play()
-play.textContent="⏸"
-album.style.animationPlayState="running"
-}else{
-audio.pause()
-play.textContent="▶"
-album.style.animationPlayState="paused"
-}
-}
-
-function updateClock(){
-document.getElementById("clock").innerText=new Date().toLocaleTimeString()
-}
-
-setInterval(updateClock,1000)
-updateClock()
-
-particlesJS("particles-js",{
-particles:{
-number:{value:20},
-color:{value:"#ffffff"},
-shape:{type:"circle"},
-opacity:{value:0.2},
-size:{value:2},
-move:{speed:0.6}
-}
-})
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>callum</title>
-
-<link rel="icon" href="pfp.png">
-
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Roboto Mono",monospace;
-font-size:16px;
-}
-
-body{
-height:100vh;
-background:url("bg.png") center/cover no-repeat fixed;
-color:#e6e6e6;
-overflow:hidden;
-}
-
-#particles-js{
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-z-index:-1;
-}
-
-#cover{
-position:fixed;
-inset:0;
-background:black;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:4rem;
-cursor:pointer;
-z-index:9999;
-}
-
-.glass{
-backdrop-filter:blur(12px);
-background:rgba(255,255,255,0.06);
-border:1px solid rgba(255,255,255,0.15);
-border-radius:20px;
-box-shadow:0 10px 40px rgba(0,0,0,0.4);
-}
-
-.card{
-width:420px;
-padding:40px;
-display:flex;
-flex-direction:column;
-gap:25px;
-}
-
-.profile{
-display:flex;
-align-items:center;
-gap:18px;
-}
-
-.avatar{
-width:80px;
-height:80px;
-border-radius:14px;
-object-fit:cover;
-box-shadow:0 0 20px rgba(255,255,255,0.1);
-}
-
-.name-row{
-display:flex;
-align-items:center;
-gap:6px;
-}
-
-.name-row h1{
-font-weight:600;
-}
-
-.badge{
-width:20px;
-height:20px;
-}
-
-.subtitle{
-color:#bdbdbd;
-}
-
-.bio{
-color:#d6d6d6;
-line-height:1.6;
-}
-
-#clock{
-position:fixed;
-top:20px;
-right:20px;
-}
-
-.audio-player{
-position:fixed;
-bottom:20px;
-right:20px;
-width:300px;
-padding:15px;
-display:flex;
-gap:12px;
-align-items:center;
-}
-
-.album{
-width:60px;
-height:60px;
-border-radius:50%;
-overflow:hidden;
-}
-
-.album img{
-width:100%;
-height:100%;
-object-fit:cover;
-animation:spin 6s linear infinite;
-animation-play-state:paused;
-}
-
-@keyframes spin{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-}
-
-.info{
-flex:1;
-}
-
-.controls{
-margin-top:6px;
-}
-
-button{
-background:none;
-border:none;
-color:white;
-cursor:pointer;
-}
-
-/* ABOUT BOX */
-.about{
-position:fixed;
-bottom:20px;
-left:20px;
-width:300px; /* widened */
-padding:22px;
-line-height:1.6;
-}
-
-.about h2{
-margin-bottom:10px;
-}
-
-.about p{
-margin-bottom:8px; /* small spacing, no big gaps */
-}
-
-.about p:last-child{
-margin-bottom:0;
-}
-
-</style>
-</head>
-
-<body>
-
-<div id="cover">hitler.cc</div>
-
-<div id="particles-js"></div>
-
-<div id="clock"></div>
-
-<div class="min-h-screen flex items-center justify-center">
-
-<div class="glass card">
-
-<div class="profile">
-
-<img src="pfp.png" class="avatar">
-
-<div>
-
-<div class="name-row">
-<h1>Nutmeg1</h1>
-<img src="badge1.png" class="badge">
-<img src="badge2.png" class="badge">
-</div>
-
-<div class="subtitle">JavaScript Developer</div>
-
-</div>
-
-</div>
-
-<p class="bio">
-16y/o Blueberry Muffin
-i love caffiene, fantasy, i have a vast music taste,
-</p>
-
-</div>
-</div>
-
-<!-- ABOUT ME BOX -->
-<div class="about glass">
-  <h2>About Me</h2>
-
-  <p>i'm 16 from england, i mostly code in javascript.</p>
-
-  <p>my favourite films are revenge of the sith and fellowship of the ring.</p>
-
-  <p>i play minecraft and roblox, and i watch way too many films.</p>
-
-  <p>favourite books are the hobbit and i have no mouth and i must scream.</p>
-
-  <p>i have a massive music taste (ignore anything jack says)</p>
 </div>
 
 <div class="audio-player glass">
