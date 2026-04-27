@@ -166,13 +166,21 @@ cursor:pointer;
 position:fixed;
 bottom:20px;
 left:20px;
-width:260px;
-padding:20px;
+width:300px; /* widened */
+padding:22px;
 line-height:1.6;
 }
 
 .about h2{
 margin-bottom:10px;
+}
+
+.about p{
+margin-bottom:8px; /* small spacing, no big gaps */
+}
+
+.about p:last-child{
+margin-bottom:0;
 }
 
 </style>
@@ -219,17 +227,16 @@ i love caffiene, fantasy, i have a vast music taste,
 <!-- ABOUT ME BOX -->
 <div class="about glass">
   <h2>About Me</h2>
-  <p>
-    i'm 16 from england, i mostly code in javascript.<br><br>
 
-    my favourite films are revenge of the sith and fellowship of the ring.<br><br>
+  <p>i'm 16 from england, i mostly code in javascript.</p>
 
-    i play minecraft and roblox, and i watch way too many films.<br><br>
+  <p>my favourite films are revenge of the sith and fellowship of the ring.</p>
 
-    favourite books are the hobbit and i have no mouth and i must scream.<br><br>
+  <p>i play minecraft and roblox, and i watch way too many films.</p>
 
-    i have a massive music taste (ignore anything jack says)
-  </p>
+  <p>favourite books are the hobbit and i have no mouth and i must scream.</p>
+
+  <p>i have a massive music taste (ignore anything jack says)</p>
 </div>
 
 <div class="audio-player glass">
@@ -239,14 +246,12 @@ i love caffiene, fantasy, i have a vast music taste,
 </div>
 
 <div class="info">
-
 <div>Heart-Shaped Box</div>
 <div style="color:#aaa;">NIRVANA</div>
 
 <div class="controls">
 <button id="play">▶</button>
 </div>
-
 </div>
 
 <audio id="music">
